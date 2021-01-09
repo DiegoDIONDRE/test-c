@@ -1,5 +1,5 @@
 ﻿using BelezaNaWeb.Domain.Entities;
-using BelezaNaWeb.Domain.Repositories.Interfaces;
+using BelezaNaWeb.Domain.Interfaces.Repositories;
 using BelezaNaWeb.Infraestructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace BelezaNaWeb.Infraestructure.Repositories
 {
-    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity
+    public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity
     {
         private readonly BelezaNaWebContext belezaNaWebContext;
 
