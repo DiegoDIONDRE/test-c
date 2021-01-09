@@ -5,9 +5,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Configuration\" />
-    <Folder Include="DTOs\" />
+    <None Remove="Configuration\AutoMapperConfiguration.cs~RFaaa9924.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BelezaNaWeb.Domain\BelezaNaWeb.Domain.csproj" />
+    <ProjectReference Include="..\BelezaNaWeb.Infraestructure\BelezaNaWeb.Infraestructure.csproj" />
   </ItemGroup>
 
 </Project>

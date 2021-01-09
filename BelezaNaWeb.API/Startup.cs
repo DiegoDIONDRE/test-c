@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BelezaNaWeb.Application.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
+[assembly: ApiConventionType(typeof(DefaultApiConventions))]
 namespace BelezaNaWeb.API
 {
     public class Startup
@@ -26,6 +28,12 @@ namespace BelezaNaWeb.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.ConfigInMemoryDatabase();
+
+            services.ConfigAutoMapper(typeof(Startup));
+
+            services.ConfigDependencyInjection();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
