@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 
 [assembly: ApiConventionType(typeof(DefaultApiConventions))]
 namespace BelezaNaWeb.API
@@ -31,9 +32,14 @@ namespace BelezaNaWeb.API
 
             services.ConfigInMemoryDatabase();
 
-            services.ConfigAutoMapper(typeof(Startup));
+            services.AddSingleton(AutoMapperConfiguration.ConfigAutoMapper());
 
             services.ConfigDependencyInjection();
+
+            services.AddSwaggerGen(setupAction =>
+            {
+                setupAction.SwaggerDoc("v1", new OpenApiInfo { Title = "API Beleza na Web", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +59,12 @@ namespace BelezaNaWeb.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(setupAction =>
+            {
+                setupAction.SwaggerEndpoint("/swagger/v1/swagger.json", "API Beleza na Web");
             });
         }
     }

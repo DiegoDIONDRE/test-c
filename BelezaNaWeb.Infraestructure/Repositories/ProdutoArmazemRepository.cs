@@ -1,5 +1,5 @@
 ﻿using BelezaNaWeb.Domain.Entities;
-using BelezaNaWeb.Domain.Interfaces.Repositories;
+using BelezaNaWeb.Domain.Interfaces;
 using BelezaNaWeb.Infraestructure.Context;
 using System;
 using System.Collections.Generic;

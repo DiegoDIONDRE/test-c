@@ -15,5 +15,10 @@ namespace BelezaNaWeb.Application.Configuration
 
             return services;
         }
+
+        public static BelezaNaWebContext ConfigBelezaNaWebContext(this IServiceScope serviceScope)
+        {
+            return serviceScope.ServiceProvider.GetService<BelezaNaWebContext>(); ;
+        }
     }
 }

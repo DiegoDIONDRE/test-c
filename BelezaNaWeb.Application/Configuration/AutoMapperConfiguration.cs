@@ -8,30 +8,24 @@ using System.Text;
 
 namespace BelezaNaWeb.Application.Configuration
 {
-    public static class AutoMapperConfiguration
+    public class AutoMapperConfiguration: Profile
     {
-        public static IServiceCollection ConfigAutoMapper(this IServiceCollection services, params Type[] profileAssemblyMarkerTypes)
+        public static IMapper ConfigAutoMapper()
         {
-            services.AddAutoMapper(profileAssemblyMarkerTypes);
+            MapperConfiguration mapperConfiguration = new MapperConfiguration(cfg => {
+                cfg.CreateMap<ProdutoEntity, ProdutoDTO>()
+                    .ForMember(dest => dest.Inventory, opt => opt.MapFrom(src => src.ProdutoInventarioEntity))
+                    .ReverseMap();
 
-            return services;
-        }
-    }
+                cfg.CreateMap<ProdutoInventarioEntity, ProdutoInventarioDTO>()
+                    .ForMember(dest => dest.Warehouses, opt => opt.MapFrom(src => src.ProdutoArmazemEntities))
+                    .ReverseMap();
 
-    public class AutoMapperProfile : Profile
-    {
-        public AutoMapperProfile()
-        {
-            CreateMap<ProdutoDTO, ProdutoEntity>()
-                .ForMember(dest => dest.ProdutoInventarioEntity, opt => opt.MapFrom(src => src.Inventory))
-                .ReverseMap();
+                cfg.CreateMap<ProdutoArmazemEntity, ProdutoArmazemDTO>()
+                    .ReverseMap();
+            });
 
-            CreateMap<ProdutoInventarioDTO, ProdutoInventarioEntity>()
-                .ForMember(dest => dest.ProdutoArmazemEntities, opt => opt.MapFrom(src => src.Warehouses))
-                .ReverseMap();
-
-            CreateMap<ProdutoArmazemDTO, ProdutoArmazemEntity>().ReverseMap();
-
+            return mapperConfiguration.CreateMapper();
         }
     }
 }
